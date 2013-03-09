@@ -95,7 +95,7 @@ module.exports = (grunt) ->
         files: ['src/scripts/**/*.coffee']
         tasks: ['coffee', 'requirejs:compile']
       haml:
-        files: ['blog/index.html', 'src/templates/**/*.haml']
+        files: ['src/index.haml', 'src/templates/**/*.haml']
         tasks: ['haml', 'requirejs:compile']
 
   grunt.loadNpmTasks 'grunt-contrib-connect'
