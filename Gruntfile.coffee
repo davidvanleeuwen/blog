@@ -45,7 +45,7 @@ module.exports = (grunt) ->
             namespace: 'JST'
             target: 'js'
           files:
-            grunt.file.expandMapping(['app/templates/**/*.haml'], 'dist/scripts/templates',
+            grunt.file.expandMapping(['src/templates/**/*.haml'], 'blog/scripts/templates',
               rename: (destBase, destPath) ->
                 return destBase + destPath.slice(13, destPath.length).replace(/\.haml$/, '.js')
             )
@@ -64,7 +64,7 @@ module.exports = (grunt) ->
           baseUrl: "./blog/scripts/"
           mainConfigFile: "./blog/scripts/main.js"
           optimize: "none"
-          out: "./blog/scripts/app.js"
+          out: "./blog/scripts/blog.js"
       deploy:
         options:
           baseUrl: "./blog/scripts/"
@@ -73,7 +73,7 @@ module.exports = (grunt) ->
           insertRequire: ['main']
           mainConfigFile: "./blog/scripts/main.js"
           optimize: "uglify"
-          out: "./blog/scripts/app.js"
+          out: "./blog/scripts/blog.js"
 
     clean: ["blog/"]
 
