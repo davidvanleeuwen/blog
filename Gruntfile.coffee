@@ -45,7 +45,7 @@ module.exports = (grunt) ->
             namespace: 'JST'
             target: 'js'
           files:
-            grunt.file.expandMapping(['src/templates/**/*.haml'], 'blog/scripts/templates',
+            grunt.file.expandMapping(['src/templates/**/*.haml'], 'blog/scripts/templates/',
               rename: (destBase, destPath) ->
                 return destBase + destPath.slice(13, destPath.length).replace(/\.haml$/, '.js')
             )
@@ -56,7 +56,6 @@ module.exports = (grunt) ->
         files:
           'blog/index.html': 'src/index.haml'
 
-
     requirejs:
       compile:
         options:
@@ -65,6 +64,7 @@ module.exports = (grunt) ->
           mainConfigFile: "./blog/scripts/main.js"
           optimize: "none"
           out: "./blog/scripts/blog.js"
+
       deploy:
         options:
           baseUrl: "./blog/scripts/"
@@ -74,8 +74,9 @@ module.exports = (grunt) ->
           mainConfigFile: "./blog/scripts/main.js"
           optimize: "uglify"
           out: "./blog/scripts/blog.js"
+          stubModules: ['mdown', 'text']
 
-    clean: ["blog/"]
+    # clean: ["blog/"]
 
     # Todo: add Jasmine
 
@@ -110,4 +111,4 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'build', ['coffee', 'sass', 'haml', 'requirejs:compile']
   grunt.registerTask 'watch', ['connect', 'build', 'livereload-start', 'open', 'regarde']
-  grunt.registerTask 'deploy', ['coffee', 'sass', 'haml', 'requirejs:deploy', 'clean']
+  grunt.registerTask 'deploy', ['coffee', 'sass', 'haml', 'requirejs:deploy']

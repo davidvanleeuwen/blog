@@ -2,6 +2,9 @@
 
   require.config({
     paths: {
+      text: '../../src/lib/text',
+      markdownConverter: '../../src/lib/Markdown.Converter',
+      mdown: '../../src/lib/mdown',
       jquery: 'vendor/jquery-1.9.1',
       underscore: 'vendor/underscore-1.4.4',
       backbone: 'vendor/backbone-0.9.10',
@@ -36,8 +39,8 @@
     }
   });
 
-  require(['jquery', 'backbone', 'modelbinder', 'relational', 'moment'], function($, Backbone) {
-    return console.log('start');
+  require(['jquery', 'backbone', 'mdown!articles/1.md', 'modelbinder', 'relational', 'moment'], function($, Backbone, article) {
+    return console.log('start', article);
   });
 
 }).call(this);
