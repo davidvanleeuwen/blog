@@ -39,4 +39,10 @@ require [
   'relational'
 ], ($, Backbone, article) ->
   $ ->
+    $('article').on 'click', (e) ->
+      if $('nav').hasClass('zen')
+        $('nav').css(height: '100%').animate(opacity: 1, duration: 500).removeClass('zen')
+      else
+        $('nav').animate(opacity: 0, duration: 500).delay(500).animate(height: 0, duration: 500).addClass('zen')
+
     $('article').html(article).gistify()

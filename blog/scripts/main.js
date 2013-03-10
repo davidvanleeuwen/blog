@@ -37,6 +37,24 @@
 
   require(['jquery', 'backbone', 'mdown!articles/1.md', 'lib/gists', 'modelbinder', 'relational'], function($, Backbone, article) {
     return $(function() {
+      $('article').on('click', function(e) {
+        if ($('nav').hasClass('zen')) {
+          return $('nav').css({
+            height: '100%'
+          }).animate({
+            opacity: 1,
+            duration: 500
+          }).removeClass('zen');
+        } else {
+          return $('nav').animate({
+            opacity: 0,
+            duration: 500
+          }).delay(500).animate({
+            height: 0,
+            duration: 500
+          }).addClass('zen');
+        }
+      });
       return $('article').html(article).gistify();
     });
   });
