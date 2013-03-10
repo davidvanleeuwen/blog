@@ -22,6 +22,12 @@ p
   font-size: 18px
   line-height: 30px
 
+a
+  color: black
+
+  &:hover
+    text-decoration: none
+
 nav
   z-index: 1
   position: absolute
@@ -44,6 +50,13 @@ nav
       text-transform: uppercase
     p
       font-size: 15px
+
+    a
+      padding: 0
+      border: 0
+      display: inline
+      color: #434343
+      text-decoration: underline
 
   a
     display: block
@@ -107,7 +120,23 @@ article
     padding:
       right: 80px
 
+code
+  border: 1px solid #eaeaea
+  background: #f8f8f8
+  border-radius: 3px
+  margin: 0 2px
+  padding: 0px 5px
 
+// Reset for gist
+code[data-gist]
+  border: 0
+  background:none
+  border: none
+  margin: 0
+  padding: 0
+
+
+// Gist styling inspired by Michiel de Graaf (michieldegraaf.com)
 
 .gist
   color: #f5f9ff
@@ -140,21 +169,23 @@ article
         -webkit-border-bottom-left-radius: 3px
         -moz-border-bottom-left-radius: 3px
         border-bottom-left-radius: 3px
+        text-align: right
 
         .line-number
           display: block
           clear: right
 
       .line-data
-        padding: 20px !important
+        padding: 10px !important
+        
       pre
         font-family: Monaco, Andale Mono, monospace
         font-size: 13px
 
 .gist .gist-syntax
-  .na, .k
+  .na, .k, .s
     color: #fff4d3
-  .kt, .m, .mi, .no
+  .kt, .m, .mi, .no, .kc
     color: #00ffbe
   .n, .s1, .s2, .sx
     color: #ff4184
@@ -168,6 +199,8 @@ article
     color: #f5f9ff
   .na, .k, .kt, .m, .mi, .no, .n, .s1, .s2, .sx, .nc, .nt, .nd, .nf, .nv, .nd, .o
     font-weight: normal !important
+  .c
+    color: #9fa0a6
 
 .gist-meta
   display: none

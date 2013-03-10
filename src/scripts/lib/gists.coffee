@@ -5,4 +5,4 @@ define ->
         url: $(@).data('gist')
         dataType: 'jsonp'
         success: (response) =>
-          $(@).replaceWith(response.div)
+          $(@).html(response.div)

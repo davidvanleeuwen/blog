@@ -8,7 +8,7 @@
           url: $(this).data('gist'),
           dataType: 'jsonp',
           success: function(response) {
-            return $(_this).replaceWith(response.div);
+            return $(_this).html(response.div);
           }
         });
       });
