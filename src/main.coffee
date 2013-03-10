@@ -41,8 +41,8 @@ require [
   $ ->
     $('article').on 'click', (e) ->
       if $('nav').hasClass('zen')
-        $('nav').css(height: '100%').animate(opacity: 1, duration: 500).removeClass('zen').delay(500).removeAttr('style')
+        $('nav').css(height: '100%').animate(opacity: 1, duration: 500).removeClass('zen').delay(500)
       else
-        $('nav').animate(opacity: 0, duration: 500).delay(500).animate(height: 0, duration: 500).addClass('zen').delay(500).removeAttr('style')
+        $('nav').animate(opacity: 0, duration: 500).delay(500).animate(height: 0, duration: 500).addClass('zen').delay(500)
 
     $('article').html(article).gistify()
