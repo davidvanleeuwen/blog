@@ -10,8 +10,7 @@
       backbone: 'vendor/backbone-0.9.10',
       marionette: 'vendor/backbone.marionette-1.0.0rc6',
       modelbinder: 'vendor/backbone.modelbinder-0.1.6',
-      relational: 'vendor/backbone.relational-0.8.0',
-      moment: 'vendor/moment-2.0.0'
+      relational: 'vendor/backbone.relational-0.8.0'
     },
     shim: {
       underscore: {
@@ -32,15 +31,14 @@
       relational: {
         exports: 'Backbone.Relational',
         deps: ['backbone']
-      },
-      moment: {
-        exports: 'moment'
       }
     }
   });
 
-  require(['jquery', 'backbone', 'mdown!articles/1.md', 'modelbinder', 'relational', 'moment'], function($, Backbone, article) {
-    return console.log('start', article);
+  require(['jquery', 'backbone', 'mdown!articles/1.md', 'lib/gists', 'modelbinder', 'relational'], function($, Backbone, article) {
+    return $(function() {
+      return $('article').html(article).gistify();
+    });
   });
 
 }).call(this);

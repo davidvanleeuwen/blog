@@ -12,7 +12,6 @@ require.config
     marionette: 'vendor/backbone.marionette-1.0.0rc6'
     modelbinder: 'vendor/backbone.modelbinder-0.1.6'
     relational: 'vendor/backbone.relational-0.8.0'
-    moment: 'vendor/moment-2.0.0'
 
   # Shim modules
   shim:
@@ -30,15 +29,14 @@ require.config
     relational:
       exports: 'Backbone.Relational'
       deps: ['backbone']
-    moment:
-      exports: 'moment'
 
 require [
   'jquery'
   'backbone'
   'mdown!articles/1.md'
+  'lib/gists'
   'modelbinder'
   'relational'
-  'moment'
 ], ($, Backbone, article) ->
-  console.log 'start', article
+  $ ->
+    $('article').html(article).gistify()

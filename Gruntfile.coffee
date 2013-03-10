@@ -19,12 +19,11 @@ module.exports = (grunt) ->
 
     coffee:
       scripts:
-        compile:
-          files: 
-            grunt.file.expandMapping(['src/scripts/**/*.coffee'], 'blog/scripts/', 
-              rename: (destBase, destPath) ->
-                return destBase + destPath.slice(12, destPath.length).replace(/\.coffee$/, '.js')
-            )
+        files: 
+          grunt.file.expandMapping(['src/scripts/**/*.coffee'], 'blog/scripts/', 
+            rename: (destBase, destPath) ->
+              return destBase + destPath.slice(12, destPath.length).replace(/\.coffee$/, '.js')
+          )
       main:
         files:
           'blog/scripts/main.js': 'src/main.coffee'
@@ -86,17 +85,17 @@ module.exports = (grunt) ->
         tasks: ['livereload:main.css']
         events: true
       livereloadJS:
-        files: ['blog/scripts/**/*.js']
+        files: ['blog/**/*.js']
         tasks: ['livereload']
         events: true
       sass:
         files: ['src/stylesheets/**/*.sass']
         tasks: ['sass']
       coffee:
-        files: ['src/scripts/**/*.coffee']
+        files: ['src/**/*.coffee', 'blog/scripts/articles/*.md']
         tasks: ['coffee', 'requirejs:compile']
       haml:
-        files: ['src/index.haml', 'src/templates/**/*.haml']
+        files: ['src/**/*.haml']
         tasks: ['haml', 'requirejs:compile']
 
   grunt.loadNpmTasks 'grunt-contrib-connect'

@@ -1,4 +1,4 @@
-@import url('http://fonts.googleapis.com/css?family=Merriweather+Sans:800|Enriqueta')
+@import url('http://fonts.googleapis.com/css?family=Merriweather+Sans:700|Enriqueta')
 
 body
   margin: 0
@@ -11,11 +11,16 @@ h2
   font-size: 30px
   line-height: 45px
 
+h3
+  font-family: 'Merriweather Sans'
+  font-size: 22px
+  line-height: 35px
+
 p 
   font-family: 'Enriqueta'
   text-align: justify
   font-size: 18px
-  line-height: 25px
+  line-height: 30px
 
 nav
   z-index: 1
@@ -80,23 +85,90 @@ article
   border:
     left: 1px solid #e3e3e3
 
-  h2
+  p:first-child
+    margin: 0
+    padding: 0
+    line-height: 19px
+    time
+      font-family: 'Merriweather Sans'
+      font-size: 14px
+      text-transform: uppercase
+      color: #434343
 
-  time
-    font-family: 'Merriweather Sans'
-    font-size: 14px
-    text-transform: uppercase
-    color: #434343
-
-  iframe
-    position: absolute
-    height: 20px
-    right: 15%
-    margin:
-      top: 3px
+  // iframe
+  //   position: absolute
+  //   height: 20px
+  //   right: 15%
+  //   margin:
+  //     top: 3px
 
   p
-    max-width: 600px
+    max-width: 700px
     padding:
       right: 80px
+
+
+
+.gist
+  color: #f5f9ff
+  
+  .gist-file
+    margin-bottom: 20px
+    border: 0 none
+    
+    .gist-data
+      font-family: Monaco, Andale Mono, monospace
+      font-size: 13px
+      line-height: 20px
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2)
+      background: #30353d
+      -webkit-border-radius: 3px
+      -moz-border-radius: 3px
+      border-radius: 3px
+      -webkit-box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.5) inset
+      -moz-box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.5) inset
+      box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.5) inset
+      
+      .line-numbers
+        padding: 20px
+        color: #6e7480
+        border: 0 none
+        background: #1b1f24
+        -webkit-border-top-left-radius: 3px
+        -moz-border-top-left-radius: 3px
+        border-top-left-radius: 3px
+        -webkit-border-bottom-left-radius: 3px
+        -moz-border-bottom-left-radius: 3px
+        border-bottom-left-radius: 3px
+
+        .line-number
+          display: block
+          clear: right
+
+      .line-data
+        padding: 20px !important
+      pre
+        font-family: Monaco, Andale Mono, monospace
+        font-size: 13px
+
+.gist .gist-syntax
+  .na, .k
+    color: #fff4d3
+  .kt, .m, .mi, .no
+    color: #00ffbe
+  .n, .s1, .s2, .sx
+    color: #ff4184
+  .nc, .nt
+    color: #84d6ed
+  .nd, .nf
+    color: #c0aafc
+  .nv
+    color: #fb8a95
+  .nd, .o
+    color: #f5f9ff
+  .na, .k, .kt, .m, .mi, .no, .n, .s1, .s2, .sx, .nc, .nt, .nd, .nf, .nv, .nd, .o
+    font-weight: normal !important
+
+.gist-meta
+  display: none
 
