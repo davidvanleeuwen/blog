@@ -46,7 +46,7 @@ require [
     articles = {first: first, second: second}
 
     # Simple navigation between articles
-    $('nav a').on 'click', (e) ->
+    $('nav a[data-article]').on 'click', (e) ->
       e.preventDefault()
       $('nav a').removeClass('active')
       
