@@ -1,7 +1,7 @@
 !!! 5
 %html
   %head
-    %title David van Leeuwen
+    %title David van Leeuwen - JavaScript blog
     
     %script{data-main: "scripts/blog", src: "scripts/vendor/require.js"}
 
@@ -21,8 +21,16 @@
         %h1 David van Leeuwen
         %p JavaScript developer, <a href="http://madeawkward.com">Awkward</a> co-founder and working on <a href="http://shipmentapp.com">Shipment</a>
 
-      %a.active{href: "#"}
+      %a.active{href: "#", data-article: "second"}
         %h2 Build a blog using Grunt
-        %p Let's create a blog, using JavaScript and some other simple tools. The articles should be written in Markdown.
+        %p This article is an introduction to Grunt and it's many plugins. Grunt is the base for all of your JavaScript projects.
+
+      %a{href: "#", data-article: "first"}
+        %h2 Foreword
+        %p 
+
+    %div.github
+      %a{href: "https://github.com/davidvanleeuwen/blog"}
+        %img{alt: "Fork me on GitHub", src: "https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"}
 
     %article

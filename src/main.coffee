@@ -34,15 +34,24 @@ require [
   'jquery'
   'backbone'
   'mdown!articles/1.md'
+  'mdown!articles/2.md'
   'lib/gists'
   'modelbinder'
   'relational'
-], ($, Backbone, article) ->
+], ($, Backbone, first, second) ->
   $ ->
-    $('article').on 'click', (e) ->
-      if $('nav').hasClass('zen')
-        $('nav').css(height: '100%').animate(opacity: 1, duration: 500).removeClass('zen').delay(500)
-      else
-        $('nav').animate(opacity: 0, duration: 500).delay(500).animate(height: 0, duration: 500).addClass('zen').delay(500)
+    # Open up latest article
+    $('article').html(second).gistify()
+    analytics?.track("Looking at second article")
+    articles = {first: first, second: second}
 
-    $('article').html(article).gistify()
+    # Simple navigation between articles
+    $('nav a').on 'click', (e) ->
+      e.preventDefault()
+      $('nav a').removeClass('active')
+      
+      element = $(e.target).closest('a')
+      element.addClass('active')
+
+      analytics?.track("Looking at #{element.attr('data-article')} article")
+      $('article').html(articles[element.attr('data-article')]).gistify()
