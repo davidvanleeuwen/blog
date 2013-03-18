@@ -42,9 +42,9 @@
       });
     });
     Blog.layout = new Blog.Layouts.Index();
-    Blog.App.container.show(Blog.layout);
     Blog.router = new Blog.Routers.Main();
     return $(function() {
+      Blog.App.container.show(Blog.layout);
       return Blog.App.start();
     });
   });

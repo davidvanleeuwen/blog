@@ -47,8 +47,8 @@ require [
     Backbone.history.start(pushState: true)
     
   Blog.layout   = new Blog.Layouts.Index()
-  Blog.App.container.show(Blog.layout)
   Blog.router   = new Blog.Routers.Main()
 
   $ ->
+    Blog.App.container.show(Blog.layout)
     Blog.App.start()
