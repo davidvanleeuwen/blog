@@ -9,3 +9,4 @@ define ['templates/article'], (template) ->
     onShow: ->
       # Go to top when article is shown
       $('body').scrollTop(0)
+      analytics?.track(@model.get('title'))

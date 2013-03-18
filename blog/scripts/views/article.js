@@ -19,7 +19,8 @@
       };
 
       Article.prototype.onShow = function() {
-        return $('body').scrollTop(0);
+        $('body').scrollTop(0);
+        return typeof analytics !== "undefined" && analytics !== null ? analytics.track(this.model.get('title')) : void 0;
       };
 
       return Article;
