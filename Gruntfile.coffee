@@ -38,16 +38,15 @@ module.exports = (grunt) ->
 
     haml:
       templates:
-        compile:
-          options:
-            language: 'coffee'
-            namespace: 'JST'
-            target: 'js'
-          files:
-            grunt.file.expandMapping(['src/templates/**/*.haml'], 'blog/scripts/templates/',
-              rename: (destBase, destPath) ->
-                return destBase + destPath.slice(13, destPath.length).replace(/\.haml$/, '.js')
-            )
+        options:
+          language: 'coffee'
+          namespace: 'JST'
+          target: 'js'
+        files:
+          grunt.file.expandMapping(['src/templates/**/*.haml'], 'blog/scripts/templates/',
+            rename: (destBase, destPath) ->
+              return destBase + destPath.slice(13, destPath.length).replace(/\.haml$/, '.js')
+          )
       index:
         compile:
           options:
