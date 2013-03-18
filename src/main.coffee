@@ -33,25 +33,22 @@ require.config
 require [
   'jquery'
   'backbone'
-  'mdown!articles/1.md'
-  'mdown!articles/2.md'
+  'blog'
+
+  'events/articles'
+  'routers/main'
+  'layouts/index'
+
   'lib/gists'
   'modelbinder'
-  'relational'
-], ($, Backbone, first, second) ->
+  # 'relational'
+], ($, Backbone) ->
+  Blog.App.addInitializer (options) ->
+    Backbone.history.start(pushState: true)
+    
+  Blog.layout   = new Blog.Layouts.Index()
+  Blog.App.container.show(Blog.layout)
+  Blog.router   = new Blog.Routers.Main()
+
   $ ->
-    # Open up latest article
-    $('article').html(second).gistify()
-    analytics?.track("Looking at second article")
-    articles = {first: first, second: second}
-
-    # Simple navigation between articles
-    $('nav a[data-article]').on 'click', (e) ->
-      e.preventDefault()
-      $('nav a').removeClass('active')
-      
-      element = $(e.target).closest('a')
-      element.addClass('active')
-
-      analytics?.track("Looking at #{element.attr('data-article')} article")
-      $('article').html(articles[element.attr('data-article')]).gistify()
+    Blog.App.start()

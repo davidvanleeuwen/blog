@@ -1,0 +1,30 @@
+(function() {
+  var __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  define(['templates/article'], function(template) {
+    return Blog.Views.Article = (function(_super) {
+
+      __extends(Article, _super);
+
+      function Article() {
+        return Article.__super__.constructor.apply(this, arguments);
+      }
+
+      Article.prototype.template = template;
+
+      Article.prototype.onRender = function() {
+        this.$el.html(this.model.get('content'));
+        return this.$el.gistify();
+      };
+
+      Article.prototype.onShow = function() {
+        return $('body').scrollTop(0);
+      };
+
+      return Article;
+
+    })(Backbone.Marionette.ItemView);
+  });
+
+}).call(this);
