@@ -4,9 +4,15 @@ define ['templates/navigation_group', 'views/navigation_item'], (template) ->
     template: template
     itemViewContainer: '.bb-articles'
 
+    events:
+      'click a': 'toggleGroup'
+
     initialize: ->
 
-    onRender: ->
+    toggleGroup: (e) ->
+      e.preventDefault()
+      @$('.arrow').toggleClass('up')
+      @$('.bb-articles').toggle()
 
     appendHtml: (collectionView, itemView, index) ->
       collectionView.$(@itemViewContainer).prepend(itemView.el)

@@ -17,9 +17,17 @@
 
       NavigationGroup.prototype.itemViewContainer = '.bb-articles';
 
+      NavigationGroup.prototype.events = {
+        'click a': 'toggleGroup'
+      };
+
       NavigationGroup.prototype.initialize = function() {};
 
-      NavigationGroup.prototype.onRender = function() {};
+      NavigationGroup.prototype.toggleGroup = function(e) {
+        e.preventDefault();
+        this.$('.arrow').toggleClass('up');
+        return this.$('.bb-articles').toggle();
+      };
 
       NavigationGroup.prototype.appendHtml = function(collectionView, itemView, index) {
         return collectionView.$(this.itemViewContainer).prepend(itemView.el);
