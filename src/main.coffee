@@ -33,6 +33,8 @@ require.config
 require [
   'jquery'
   'backbone'
+  'relational'
+  'modelbinder'
   'blog'
 
   'events/articles'

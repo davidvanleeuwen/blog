@@ -1,9 +1,12 @@
-define ['templates/navigation', 'views/navigation_item'], (template) ->
+define ['templates/navigation', 'views/navigation_group'], (template) ->
   class Blog.Views.Navigation extends Backbone.Marionette.CompositeView
-    itemView: Blog.Views.NavigationItem
+    itemView: Blog.Views.NavigationGroup
     template: template
     itemViewContainer: '.bb-items'
     
+    itemViewOptions: =>
+      collection: @model.get('articles')
+
     initialize: ->
 
     appendHtml: (collectionView, itemView, index) ->

@@ -1,3 +1,3 @@
 define ->
-  class Blog.Models.Article extends Backbone.Model
+  class Blog.Models.Article extends Backbone.RelationalModel
 

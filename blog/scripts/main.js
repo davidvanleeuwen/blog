@@ -35,7 +35,7 @@
     }
   });
 
-  require(['jquery', 'backbone', 'blog', 'events/articles', 'routers/main', 'layouts/index', 'lib/gists', 'modelbinder'], function($, Backbone) {
+  require(['jquery', 'backbone', 'relational', 'modelbinder', 'blog', 'events/articles', 'routers/main', 'layouts/index', 'lib/gists', 'modelbinder'], function($, Backbone) {
     Blog.App.addInitializer(function(options) {
       return Backbone.history.start({
         pushState: true

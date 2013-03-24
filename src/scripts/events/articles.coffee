@@ -1,12 +1,15 @@
 define [
-  'collections/articles'
+  'collections/groups'
   'views/article'
   'views/navigation'
   'views/not_found'
-], (articles) ->
+], (groups) ->
 
   Blog.App.vent.bind 'article', (slug) ->
-    article = articles.getArticle(slug)
+    group   = groups.findArticleBySlug(slug)
+    group   = groups.last() unless group
+
+    article = group.get('articles').getArticle(slug)
 
     unless article
       Blog.App.vent.trigger('404')
@@ -14,7 +17,7 @@ define [
 
     Blog.router.navigate("/articles/#{slug}", {trigger: false}) if slug
 
-    nav     = new Blog.Views.Navigation(model: article, collection: articles)
+    nav     = new Blog.Views.Navigation(model: group, collection: groups)
     view    = new Blog.Views.Article(model: article)
 
     Blog.layout.navigation.show(nav)
@@ -22,7 +25,7 @@ define [
 
 
   Blog.App.vent.bind '404', ->
-    nav     = new Blog.Views.Navigation(collection: articles)
+    nav     = new Blog.Views.Navigation(collection: groups)
     view    = new Blog.Views.NotFound()
 
     Blog.layout.navigation.show(nav)

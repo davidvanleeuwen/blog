@@ -13,7 +13,7 @@
 
       return Article;
 
-    })(Backbone.Model);
+    })(Backbone.RelationalModel);
   });
 
 }).call(this);
