@@ -7,7 +7,11 @@ define ['templates/navigation_group', 'views/navigation_item'], (template) ->
     events:
       'click a': 'toggleGroup'
 
-    initialize: ->
+    bindings:
+      'h3': 'title'
+
+    onRender: ->
+      @stickit()
 
     toggleGroup: (e) ->
       e.preventDefault()

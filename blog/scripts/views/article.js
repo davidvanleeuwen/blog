@@ -13,10 +13,15 @@
 
       Article.prototype.template = template;
 
+      Article.prototype.bindings = {
+        ':el': {
+          observe: 'content',
+          updateMethod: 'html'
+        }
+      };
+
       Article.prototype.onRender = function() {
-        rivets.bind(this.$el, {
-          model: this.model
-        });
+        this.stickit();
         return this.$el.gistify();
       };
 

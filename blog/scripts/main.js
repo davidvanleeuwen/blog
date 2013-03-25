@@ -13,7 +13,7 @@
       underscore: 'vendor/underscore-1.4.4',
       backbone: 'vendor/backbone-0.9.10',
       marionette: 'vendor/backbone.marionette-1.0.0rc6',
-      rivets: 'vendor/rivets',
+      stickit: 'vendor/backbone.stickit-0.6.3',
       relational: 'vendor/backbone.relational-0.8.0'
     },
     shim: {
@@ -28,8 +28,8 @@
         deps: ['jquery', 'underscore', 'backbone'],
         exports: 'Marionette'
       },
-      rivets: {
-        exports: 'Rivets',
+      stickit: {
+        exports: 'Stickit',
         deps: ['backbone']
       },
       relational: {
@@ -39,7 +39,7 @@
     }
   });
 
-  require(['jquery', 'backbone', 'relational', 'rivets', 'blog', 'events/articles', 'routers/main', 'layouts/index', 'lib/gists', 'lib/rivets_adapter'], function($, Backbone) {
+  require(['jquery', 'backbone', 'relational', 'stickit', 'blog', 'events/articles', 'routers/main', 'layouts/index', 'lib/gists'], function($, Backbone) {
     Blog.App.addInitializer(function(options) {
       return Backbone.history.start({
         pushState: true

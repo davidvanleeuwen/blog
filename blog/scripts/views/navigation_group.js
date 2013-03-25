@@ -21,7 +21,13 @@
         'click a': 'toggleGroup'
       };
 
-      NavigationGroup.prototype.initialize = function() {};
+      NavigationGroup.prototype.bindings = {
+        'h3': 'title'
+      };
+
+      NavigationGroup.prototype.onRender = function() {
+        return this.stickit();
+      };
 
       NavigationGroup.prototype.toggleGroup = function(e) {
         e.preventDefault();

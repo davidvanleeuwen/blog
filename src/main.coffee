@@ -37,7 +37,7 @@ require [
   'jquery'
   'backbone'
   'relational'
-  'rivets'
+  'stickit'
   'blog'
 
   'events/articles'
@@ -45,7 +45,6 @@ require [
   'layouts/index'
 
   'lib/gists'
-  'lib/rivets_adapter'
 ], ($, Backbone) ->
   Blog.App.addInitializer (options) ->
     Backbone.history.start(pushState: true)

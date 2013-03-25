@@ -2,8 +2,13 @@ define ['templates/article'], (template) ->
   class Blog.Views.Article extends Backbone.Marionette.ItemView
     template: template
 
+    bindings:
+      ':el': 
+        observe: 'content'
+        updateMethod: 'html'
+
     onRender: ->
-      @$el.html @model.get('content')
+      @stickit()
       @$el.gistify()
 
     onShow: ->

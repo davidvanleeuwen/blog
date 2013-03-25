@@ -13,8 +13,36 @@
 
       NavigationItem.prototype.template = template;
 
+      NavigationItem.prototype.bindings = {
+        'h2': 'title',
+        'p': 'intro',
+        'a': {
+          attributes: [
+            {
+              name: 'href',
+              observe: 'slug',
+              onGet: function(val) {
+                return "/articles/" + val;
+              }
+            }, {
+              name: 'class',
+              observe: 'active',
+              onGet: function(val) {
+                if (val) {
+                  return 'active';
+                }
+              }
+            }
+          ]
+        }
+      };
+
       NavigationItem.prototype.events = {
         'click a': 'goToArticle'
+      };
+
+      NavigationItem.prototype.onRender = function() {
+        return this.stickit();
       };
 
       NavigationItem.prototype.goToArticle = function(e) {
