@@ -45,7 +45,7 @@ module.exports = (grunt) ->
         files:
           grunt.file.expandMapping(['src/templates/**/*.haml'], 'blog/scripts/templates/',
             rename: (destBase, destPath) ->
-              return destBase + destPath.slice(13, destPath.length).replace(/\.haml$/, '.js')
+              return destBase + destPath.slice(14, destPath.length).replace(/\.haml$/, '.js')
           )
       index:
         compile:
