@@ -17,19 +17,6 @@
         'click a': 'goToArticle'
       };
 
-      NavigationItem.prototype.initialize = function() {};
-
-      NavigationItem.prototype.onRender = function() {
-        this.$('h2').text(this.model.get('title'));
-        this.$('p').text(this.model.get('intro'));
-        this.$('a').attr('href', "/articles/" + (this.model.get('slug')));
-        if (this.model.get('active')) {
-          return this.$('a').addClass('active');
-        } else {
-          return this.$('a').removeClass('active');
-        }
-      };
-
       NavigationItem.prototype.goToArticle = function(e) {
         e.preventDefault();
         return Blog.App.vent.trigger('article', this.model.get('slug'));

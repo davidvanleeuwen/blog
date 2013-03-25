@@ -1,4 +1,6 @@
-define ['fixtures/articles', 'models/group'], (fixtures) ->
+define [
+  'fixtures/articles', 'models/group'
+], (fixtures) ->
   class Blog.Collections.Groups extends Backbone.Collection
     model: Blog.Models.Group
 

@@ -1,15 +1,19 @@
 (function() {
 
   require.config({
+    waitSeconds: 45,
+    pragmasOnSave: {
+      excludeMdown: true
+    },
     paths: {
       text: '../../src/lib/text',
-      markdownConverter: '../../src/lib/Markdown.Converter',
       mdown: '../../src/lib/mdown',
+      markdownConverter: '../../src/lib/Markdown.Converter',
       jquery: 'vendor/jquery-1.9.1',
       underscore: 'vendor/underscore-1.4.4',
       backbone: 'vendor/backbone-0.9.10',
       marionette: 'vendor/backbone.marionette-1.0.0rc6',
-      modelbinder: 'vendor/backbone.modelbinder-0.1.6',
+      rivets: 'vendor/rivets',
       relational: 'vendor/backbone.relational-0.8.0'
     },
     shim: {
@@ -24,8 +28,8 @@
         deps: ['jquery', 'underscore', 'backbone'],
         exports: 'Marionette'
       },
-      modelbinder: {
-        exports: 'ModelBinder',
+      rivets: {
+        exports: 'Rivets',
         deps: ['backbone']
       },
       relational: {
@@ -35,7 +39,7 @@
     }
   });
 
-  require(['jquery', 'backbone', 'relational', 'modelbinder', 'blog', 'events/articles', 'routers/main', 'layouts/index', 'lib/gists', 'modelbinder'], function($, Backbone) {
+  require(['jquery', 'backbone', 'relational', 'rivets', 'blog', 'events/articles', 'routers/main', 'layouts/index', 'lib/gists', 'lib/rivets_adapter'], function($, Backbone) {
     Blog.App.addInitializer(function(options) {
       return Backbone.history.start({
         pushState: true

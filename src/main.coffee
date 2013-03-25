@@ -1,16 +1,19 @@
 require.config
+  waitSeconds: 45
 
+  pragmasOnSave:
+    excludeMdown: true
+  
   # AMD modules / plugins
   paths:
     text: '../../src/lib/text'
-    markdownConverter: '../../src/lib/Markdown.Converter'
     mdown: '../../src/lib/mdown'
-
+    markdownConverter: '../../src/lib/Markdown.Converter'
     jquery: 'vendor/jquery-1.9.1'
     underscore: 'vendor/underscore-1.4.4'
     backbone: 'vendor/backbone-0.9.10'
     marionette: 'vendor/backbone.marionette-1.0.0rc6'
-    modelbinder: 'vendor/backbone.modelbinder-0.1.6'
+    stickit: 'vendor/backbone.stickit-0.6.3'
     relational: 'vendor/backbone.relational-0.8.0'
 
   # Shim modules
@@ -23,8 +26,8 @@ require.config
     marionette:
       deps: ['jquery', 'underscore', 'backbone']
       exports: 'Marionette'
-    modelbinder:
-      exports: 'ModelBinder'
+    stickit:
+      exports: 'Stickit'
       deps: ['backbone']
     relational:
       exports: 'Backbone.Relational'
@@ -34,7 +37,7 @@ require [
   'jquery'
   'backbone'
   'relational'
-  'modelbinder'
+  'rivets'
   'blog'
 
   'events/articles'
@@ -42,8 +45,7 @@ require [
   'layouts/index'
 
   'lib/gists'
-  'modelbinder'
-  # 'relational'
+  'lib/rivets_adapter'
 ], ($, Backbone) ->
   Blog.App.addInitializer (options) ->
     Backbone.history.start(pushState: true)

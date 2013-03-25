@@ -14,7 +14,9 @@
       Article.prototype.template = template;
 
       Article.prototype.onRender = function() {
-        this.$el.html(this.model.get('content'));
+        rivets.bind(this.$el, {
+          model: this.model
+        });
         return this.$el.gistify();
       };
 

@@ -72,7 +72,7 @@ module.exports = (grunt) ->
           mainConfigFile: "./blog/scripts/main.js"
           optimize: "uglify"
           out: "./blog/scripts/blog.js"
-          stubModules: ['mdown', 'text']
+          stubModules: ['text', 'mdown']
 
     # clean: ["blog/"]
 
@@ -82,11 +82,11 @@ module.exports = (grunt) ->
       livereloadCSS:
         files: ['blog/stylesheets/main.css']
         tasks: ['livereload:main.css']
-        events: true
+        # events: true
       livereloadJS:
         files: ['blog/**/*.js']
         tasks: ['livereload']
-        events: true
+        # events: true
       sass:
         files: ['src/stylesheets/**/*.sass']
         tasks: ['sass']
