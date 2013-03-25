@@ -1,13 +1,13 @@
 (function() {
 
-  define(['collections/groups', 'views/article', 'views/navigation', 'views/not_found'], function(groups) {
+  define(['collections/chapters', 'views/article', 'views/navigation', 'views/not_found'], function(chapters) {
     Blog.App.vent.bind('article', function(slug) {
-      var article, group, nav, view;
-      group = groups.findArticleBySlug(slug);
-      if (!group) {
-        group = groups.last();
+      var article, chapter, nav, view;
+      chapter = chapters.findArticleBySlug(slug);
+      if (!chapter) {
+        chapter = chapters.last();
       }
-      article = group.get('articles').getArticle(slug);
+      article = chapter.get('articles').getArticle(slug);
       if (!article) {
         Blog.App.vent.trigger('404');
         return;
@@ -18,8 +18,8 @@
         });
       }
       nav = new Blog.Views.Navigation({
-        model: group,
-        collection: groups
+        model: chapter,
+        collection: chapters
       });
       view = new Blog.Views.Article({
         model: article
@@ -30,7 +30,7 @@
     return Blog.App.vent.bind('404', function() {
       var nav, view;
       nav = new Blog.Views.Navigation({
-        collection: groups
+        collection: chapters
       });
       view = new Blog.Views.NotFound();
       Blog.layout.navigation.show(nav);

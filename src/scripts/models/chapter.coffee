@@ -1,5 +1,5 @@
 define ['collections/articles', 'models/article'], ->
-  class Blog.Models.Group extends Backbone.RelationalModel
+  class Blog.Models.Chapter extends Backbone.RelationalModel
     relations: [
       type: Backbone.HasMany
       key: 'articles'

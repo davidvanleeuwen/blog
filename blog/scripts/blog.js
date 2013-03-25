@@ -17126,7 +17126,7 @@ define('mdown!articles/build-a-blog-using-grunt.md',[],function () { return '<p>
 
 define('mdown!articles/backbone.marionette.md',[],function () { return '<p><time>March 18, 2013</time> </p>\n\n<h2>Backbone.Marionette</h2>\n\n<p>When you\'re looking to build an application with JavaScript, Backbone.Marionette is the right choice. In this article, I\'ll get into Marionette - and change this blog into a application for real world use.</p>\n\n<h3>Hello Backbone and Marionette</h3>\n\n<p>Backbone is awesome. It\'s the engine that runs a lot of great apps like <a href="http://www.getflow.com/">Flow</a>, <a href="https://foursquare.com/">FourSquare</a> and <a href="https://stripe.com/">Stripe</a>. Backbone, like the site says: is a library. That\'s because it\'s really flexible and you can use it however and whatever you\'d like.</p>\n\n<p>It has a <a href="http://lostechies.com/derickbailey/2011/12/23/backbone-js-is-not-an-mvc-framework/">MV*-whatever</a> structure, so you do more, while writing less. The founding father, Jeremy Ashkenas, is also the guy behind CoffeeScript. I believe it has a really strong community and because of it\'s flexibility and community the best \'library\' out there to build JavaScript applications at this point.</p>\n\n<p>But to use all of it\'s functionality, it requires a fair amount of boilerplate code. So that\'s where Marionette comes in.</p>\n\n<h3>So what are we up to</h3>\n\n<p>To be honest, Marionette also requires some boilerplate code. But it will eventually let you write less code. In this article I want to make this blog more functional, so you can navigate between articles. It should be more dynamic, so the next time I want to add an article, I don\'t want to change any HTML.</p>\n\n<p>Sounds pretty easy doesn\'t it?</p>\n\n<h3>Let\'s do it</h3>\n\n<p><code data-gist="https://gist.github.com/5178354.json"></code></p>\n\n<p>This is the Blog class, which will be our general container class for all objects. We have a list of our own objects we want to expose, creating an instance of a Marionette Application and we\'re adding a region.</p>\n\n<p>So if you haven\'t used Backbone before, you\'ll probably will have to deal with a lot of new stuff here. I advice you to first take a look at the <a href="http://documentcloud.github.com/backbone/">Backbone site</a> and then head over the <a href="https://github.com/marionettejs/backbone.marionette#marionettes-pieces">Marionette site</a> to see all it\'s extensions.</p>\n\n<p>It adds a few different types of views: <a href="https://github.com/marionettejs/backbone.marionette/blob/master/docs/marionette.itemview.md">Marionette.ItemView</a>, <a href="https://github.com/marionettejs/backbone.marionette/blob/master/docs/marionette.collectionview.md">Marionnete.CollectionView</a>, the combination of those two <a href="https://github.com/marionettejs/backbone.marionette/blob/master/docs/marionette.compositeview.md">Marionette.CompositeView</a> and <a href="https://github.com/marionettejs/backbone.marionette/blob/master/docs/marionette.layout.md">Marionette.Layout</a>.</p>\n\n<p>You should always start out with a layout. This is because you can define <a href="https://github.com/marionettejs/backbone.marionette/blob/master/docs/marionette.region.md">regions</a> within a layout, to manage nested views. You can use <code>layout.show(view)</code> for rendering the view in a region and it will make sure it closes views that where already in that region. For every view you\'ll have the <code>onRender</code>, <code>onShow</code> and <code>onClose</code> methods to do any other work that\'s needed for your view. Let\'s create a layout for our blog:</p>\n\n<p><code data-gist="https://gist.github.com/5178609.json"></code></p>\n\n<p>I started out creating an <code>Article</code> view, which extends from ItemView and a <code>Navigation</code> view, which extends from CompositeView and a <code>NavigationItem</code> view, which also extends from ItemView. Those are all the views we need for now.</p>\n\n<h3>It\'s event-driven, so what?</h3>\n\n<p>When I was only using Backbone, I used to write a lot of logic in my routers - which isn\'t that nice and makes your code really cluttered. Then I saw <a href="https://github.com/ModelN/backbone.geppetto">Backbone.Geppetto</a>, another framework, which implements more of an event-driven architecture. I thought that my routers should look more like routers in Rails. So when I saw Marionette - I definitely found the solution.</p>\n\n<p>With your own events, you can create a really scalable, robust system. And your routers stay clean. <a href="https://github.com/marionettejs/backbone.wreqr">Backbone.Wreqr</a> is an event aggregator that makes this happen within Backbone.Marionette.</p>\n\n<p><code data-gist="https://gist.github.com/5179205.json"></code></p>\n\n<p>When we trigger the event <code>article</code> it will figure out which model to use and what views to render. And the best thing is that I can call that event wherever and whenever I want. So when I call it without a slug, it will just render the latest article. If it has a slug and it doesn\'t find it in the collection, it will trigger the <code>404</code> event, which is also located in this file for now.</p>\n\n<p>When we call <code>show</code>, it will automatically render that view and take care of memory management. Isn\'t that just awesome?</p>\n\n<h3>But where did all the articles go?</h3>\n\n<p>For this blog, we don\'t really need an backend right now. Let\'s just stick with fixtures for the articles and get those markdown files in there as models. We have a collection <code>articles</code> and a model <code>article</code>. That\'s it. To use the data, I\'ve imported them right back into the <code>articles.coffee</code> event file - so we can manage those articles from there.</p>\n\n<p>The navigation isn\'t a static thing anymore, but it builds up depending on your articles. We\'re using a CompositeView right now and the nice thing is, that it uses collections to create \'list\' type views. Also, the difference between a CompositeView and a CollectionView is that a CompositeView accepts a template, while a CollectionView will be just a list (with a tagName ul for example). The header is also in the same view at the moment.</p>\n\n<p><code data-gist="https://gist.github.com/5181909.json"></code></p>\n\n<p>The articles in the fixtures are in chronological order. But for the navigation we want the latest article on top. The <code>appendHtml</code> is a method which is inherited from CollectionView. It will automatically keep track of all views and use this method for placing the views. So instead of appending it to the <code>itemViewContainer</code>, a selector to define where to place those itemViews, those views will be prepended. </p>\n\n<h3>Pro\'s and cons</h3>\n\n<p>Using Backbone for your apps is ofcourse a big improvement, but there\'re still a lot of downsides to it. Things like good SEO isn\'t really there yet, that\'s why it\'s recommended to use for apps and not your marketing site. With Marionette, you\'ll get a more robust system - so less boilerplate code is needed. Using Marionette will improve the flexibility, which will make your app more easy to build and scale at the same time.</p>\n\n<p>When you\'re choosing Backbone for your app, you should definitely take a look at Marionette and hopefully this article explains some bits of the logic behind it.</p>\n\n<h3>What\'s next</h3>\n\n<p>This article has improved this blog a lot. But I think it still can use some useful features. Maybe comments or a different system so you can give feedback. But I think that dynamic data will be a big part of my next article. So I\'ll get into some Backbone extensions/plugins that are useful to get things done.</p>\n\n<p>Please let me know if you have any questions or suggestions, so we can improve this blog by sending me a tweet <a href="http://twitter.com/davidvanleeuwen">@davidvanleeuwen</a>.</p>';});
 
-define('mdown!articles/useful-backbone-extensions.md',[],function () { return '<p><time>March 25, 2013</time> </p>\n\n<h2>Useful Backbone extensions</h2>\n\n<p>Backbone 1.0.0 was recently released. In this article we\'ll talk about why Backbone has become such a great platform. You probably already know Backbone and know why it\'s awesome, but the extensions make it even more spectacular. <a href="https://github.com/davidvanleeuwen/blog">See how this code works</a>.</p>\n\n<h3>The awesomesauce</h3>\n\n<p>Backbone is a library and you can use it however you want. When you\'re working on more complex apps, you\'ll run into certain problems or want to give a user a better experience. </p>\n\n<p>Last week I talked about Marionette, which is an extensions that adds functionality so you can write your app faster/better. The past couple of months I\'ve came across several extensions, which I think can make your life as a Backbone developer so much easier. That\'s why I\'ve created a top 5 for you.</p>\n\n<h3>5. Paginator</h3>\n\n<p>We\'re not using the <a href="https://github.com/addyosmani/backbone.paginator">Backbone.Paginator</a> for this blog, but it\'s really useful when creating an app that is in need of pagination. There are several paginator extensions out there, but this will get the job done.</p>\n\n<p>It has two components, one meant for clientside pagination and one meant for pagination hooked up to your API. It extends from a <code>Backbone.Collection</code> and you can add your own options for serverside handling and UI handling. But you\'ll have to implement your own UI for pagination, which makes it more flexible - but requires some more coding on your end.</p>\n\n<h3>4. Validation</h3>\n\n<p>For most applications you\'ll need to do some validation. Not for this blog, but whenever you want to validate your form and do some UI work with it, you should definitely look at <a href="https://github.com/thedersen/backbone.validation">Backbone.Validation</a>. It\'s a simple and effective extension.</p>\n\n<p>This extension is especially useful in combination with other extensions in this list.</p>\n\n<h3>3. RivetJS</h3>\n\n<h3>2. Relational model</h3>\n\n<h3>1. Memento</h3>\n\n<ul>\n<li>movie</li>\n<li>unique</li>\n<li>makes really difference</li>\n<li>native feel</li>\n<li>not so standard</li>\n</ul>\n\n<h3>Next chapter</h3>\n\n<ul>\n<li>intro (why extensions?)</li>\n<li>the result (this blog)</li>\n<li>top 5 (memento, relational model [x], validation, rivetjs/modelbinder [x], paginator)</li>\n<li>winner (memento: unique, give your app a more native feel)</li>\n<li>conclusion</li>\n</ul>';});
+define('mdown!articles/useful-backbone-extensions.md',[],function () { return '<p><time>March 26, 2013</time> </p>\n\n<h2>Useful Backbone extensions</h2>\n\n<p>Backbone 1.0.0 was recently released. In this article we\'ll talk about why Backbone has become such a great platform. You probably already know Backbone and know why it\'s awesome, but the extensions make it even more spectacular. <a href="https://github.com/davidvanleeuwen/blog">See how this code works</a>.</p>\n\n<h3>The awesomesauce</h3>\n\n<p>Backbone is a library and you can use it however you want. When you\'re working on more complex apps, you\'ll run into certain problems or want to give a user a better experience. </p>\n\n<p>Last week I talked about Marionette, which is an extensions that adds functionality so you can write your app faster/better. The past couple of months I\'ve came across several extensions, which I think can make your life as a Backbone developer so much easier. That\'s why I\'ve created a top 5.</p>\n\n<h3>5. Paginator</h3>\n\n<p>We\'re not using the <a href="https://github.com/addyosmani/backbone.paginator">Backbone.Paginator</a> for this blog, but it\'s really useful when creating an app that is in need of pagination. There are several paginator extensions out there, but this will get the job done.</p>\n\n<p>It has two components, one meant for clientside pagination and one meant for pagination hooked up to your API. It extends from a <code>Backbone.Collection</code> and you can add your own options for serverside handling and UI handling. But you\'ll have to implement your own UI for pagination, which makes it more flexible - but requires some more coding on your end.</p>\n\n<h3>4. Validation</h3>\n\n<p>For most applications you\'ll need to do some validation. Not for this blog, but whenever you want to validate your form and do some UI work with it, you should definitely look at <a href="https://github.com/thedersen/backbone.validation">Backbone.Validation</a>. It\'s a simple and effective extension.</p>\n\n<p>This extension is especially useful in combination with other extensions in this list.</p>\n\n<p><strong>PLAATJE VANUIT SHIPMENT</strong></p>\n\n<h3>3. Stickit</h3>\n\n<p>Instead of manually setting your model attributes for every view and render it again for every change, you\'ll be probably better of using a view-binding extension. Luckily there are several out there.</p>\n\n<p><a href="https://github.com/theironcook/Backbone.ModelBinder">Backbone.Modelbinder</a> is to most basic one, which is pretty straightforward and simple to use. But if you want to do some more custom things it\'s becomes pretty cumbersome.</p>\n\n<p>If you prefer the <a href="http://angularjs.org/">AngularJS</a> approach, you can use <a href="http://rivetsjs.com/">RivetJS</a>. It works by declaring your bindings in the templates itself.</p>\n\n<p>Although I\'m used to Modelbinder, I think I\'m going to use Stickit from now on. As Modelbinder, you can declare your bindings in the <code>Backbone.View</code> and not in your templates. Your templates should stay simple and clean. Take a look at the bindings for our <a href="https://github.com/davidvanleeuwen/blog/blob/master/src/scripts/views/navigation_item.coffee">NavigationItem</a>:</p>\n\n<p><code data-gist="https://gist.github.com/5241490.json"></code></p>\n\n<p>As <a href="http://nytimes.github.com/backbone.stickit/">the site</a> says: you only need to define <code>view.bindings</code> and call <code>@stickit()</code>. The value in the hash is the selector, so you can grab the element you want to use from your template. The key is the attribute from your model, which is <code>@model</code> by default.</p>\n\n<p>You can do all kinds of awesome things with Stickit. If you look at the anchor, you\'ll see that we\'re targeting two attributes. The <code>href</code> is used to set a slug but change it\'s output value. We\'re also setting the <code>class</code> attribute to active when it\'s true.</p>\n\n<h3>2. Relational</h3>\n\n<p>Having nested data is pretty common in larger projects. Having an array in your model or maybe a user object. You will always want to use <a href="http://backbonerelational.org/">Backbone.Relational</a>.</p>\n\n<p>You can define relations to you\'re nested attributes. There are two relation types, one is <code>HasOne</code> and a <code>HasMany</code>, so you can use a nested model or a nested collection as a relation.</p>\n\n<p>I\'ve changed this blog to group multiple articles, so I can create chapters:</p>\n\n<h3>1. Memento</h3>\n\n<ul>\n<li>movie</li>\n<li>unique</li>\n<li>makes really difference</li>\n<li>native feel</li>\n<li>not so standard</li>\n</ul>\n\n<h3>Next chapter</h3>\n\n<ul>\n<li>intro (why extensions?)</li>\n<li>the result (this blog)</li>\n<li>top 5 (memento, relational model [x], validation, rivetjs/modelbinder [x], paginator)</li>\n<li>winner (memento: unique, give your app a more native feel)</li>\n<li>conclusion</li>\n</ul>';});
 
 (function() {
 
@@ -17230,16 +17230,16 @@ define('mdown!articles/useful-backbone-extensions.md',[],function () { return '<
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define('models/group',['collections/articles', 'models/article'], function() {
-    return Blog.Models.Group = (function(_super) {
+  define('models/chapter',['collections/articles', 'models/article'], function() {
+    return Blog.Models.Chapter = (function(_super) {
 
-      __extends(Group, _super);
+      __extends(Chapter, _super);
 
-      function Group() {
-        return Group.__super__.constructor.apply(this, arguments);
+      function Chapter() {
+        return Chapter.__super__.constructor.apply(this, arguments);
       }
 
-      Group.prototype.relations = [
+      Chapter.prototype.relations = [
         {
           type: Backbone.HasMany,
           key: 'articles',
@@ -17248,7 +17248,7 @@ define('mdown!articles/useful-backbone-extensions.md',[],function () { return '<
         }
       ];
 
-      return Group;
+      return Chapter;
 
     })(Backbone.RelationalModel);
   });
@@ -17259,29 +17259,29 @@ define('mdown!articles/useful-backbone-extensions.md',[],function () { return '<
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define('collections/groups',['fixtures/articles', 'models/group'], function(fixtures) {
-    Blog.Collections.Groups = (function(_super) {
+  define('collections/chapters',['fixtures/articles', 'models/chapter'], function(fixtures) {
+    Blog.Collections.Chapters = (function(_super) {
 
-      __extends(Groups, _super);
+      __extends(Chapters, _super);
 
-      function Groups() {
-        return Groups.__super__.constructor.apply(this, arguments);
+      function Chapters() {
+        return Chapters.__super__.constructor.apply(this, arguments);
       }
 
-      Groups.prototype.model = Blog.Models.Group;
+      Chapters.prototype.model = Blog.Models.Chapter;
 
-      Groups.prototype.findArticleBySlug = function(slug) {
-        return this.find(function(group) {
-          return _.any(group.get('articles').pluck('slug'), function(item) {
+      Chapters.prototype.findArticleBySlug = function(slug) {
+        return this.find(function(chapter) {
+          return _.any(chapter.get('articles').pluck('slug'), function(item) {
             return item === slug;
           });
         });
       };
 
-      return Groups;
+      return Chapters;
 
     })(Backbone.Collection);
-    return new Blog.Collections.Groups(fixtures);
+    return new Blog.Collections.Chapters(fixtures);
   });
 
 }).call(this);
@@ -17592,14 +17592,14 @@ define('mdown!articles/useful-backbone-extensions.md',[],function () { return '<
 
 (function() {
 
-  define('events/articles',['collections/groups', 'views/article', 'views/navigation', 'views/not_found'], function(groups) {
+  define('events/articles',['collections/chapters', 'views/article', 'views/navigation', 'views/not_found'], function(chapters) {
     Blog.App.vent.bind('article', function(slug) {
-      var article, group, nav, view;
-      group = groups.findArticleBySlug(slug);
-      if (!group) {
-        group = groups.last();
+      var article, chapter, nav, view;
+      chapter = chapters.findArticleBySlug(slug);
+      if (!chapter) {
+        chapter = chapters.last();
       }
-      article = group.get('articles').getArticle(slug);
+      article = chapter.get('articles').getArticle(slug);
       if (!article) {
         Blog.App.vent.trigger('404');
         return;
@@ -17610,8 +17610,8 @@ define('mdown!articles/useful-backbone-extensions.md',[],function () { return '<
         });
       }
       nav = new Blog.Views.Navigation({
-        model: group,
-        collection: groups
+        model: chapter,
+        collection: chapters
       });
       view = new Blog.Views.Article({
         model: article
@@ -17622,7 +17622,7 @@ define('mdown!articles/useful-backbone-extensions.md',[],function () { return '<
     return Blog.App.vent.bind('404', function() {
       var nav, view;
       nav = new Blog.Views.Navigation({
-        collection: groups
+        collection: chapters
       });
       view = new Blog.Views.NotFound();
       Blog.layout.navigation.show(nav);
