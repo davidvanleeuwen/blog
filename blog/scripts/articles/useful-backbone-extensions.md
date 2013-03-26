@@ -11,6 +11,8 @@ Backbone is a library and you can use it however you want. When you're working o
 
 Last week I talked about Marionette, which is an extensions that adds functionality so you can write your app faster/better. The past couple of months I've came across several extensions, which I think can make your life so much easier as a Backbone developer. That's why I've created a top 5.
 
+In this article we'll use some of the extensions to improve this blog. We'll create chapters for future articles and add view bindings, so we'll be ready for all upcoming articles.
+
 ### 5. Paginator ###
 
 We're not using the [Backbone.Paginator](https://github.com/addyosmani/backbone.paginator) for this blog, but it's really useful when creating an app that is in need of pagination. There are several paginator extensions out there, but this will get the job done in a simple matter.
