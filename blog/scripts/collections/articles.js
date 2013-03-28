@@ -21,11 +21,6 @@
         if (!slug) {
           article = this.last();
         }
-        this.each(function(item) {
-          return item.set({
-            active: false
-          });
-        });
         if (article) {
           article.set({
             active: true

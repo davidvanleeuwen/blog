@@ -21,6 +21,16 @@
         });
       };
 
+      Chapters.prototype.setInactive = function() {
+        return this.each(function(chapter) {
+          return chapter.get('articles').each(function(item) {
+            return item.set({
+              active: false
+            });
+          });
+        });
+      };
+
       return Chapters;
 
     })(Backbone.Collection);

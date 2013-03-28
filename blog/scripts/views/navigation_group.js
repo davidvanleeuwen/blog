@@ -22,17 +22,31 @@
       };
 
       NavigationGroup.prototype.bindings = {
-        'h3': 'title'
+        'h3': 'title',
+        '.arrow': {
+          observe: 'open',
+          onGet: 'setOpen'
+        }
+      };
+
+      NavigationGroup.prototype.initialize = function() {
+        return this.collection = this.model.get('articles');
       };
 
       NavigationGroup.prototype.onRender = function() {
         return this.stickit();
       };
 
+      NavigationGroup.prototype.setOpen = function(val) {
+        this.$('.arrow').toggleClass('up', !val);
+        this.$('.bb-articles').toggle(val);
+      };
+
       NavigationGroup.prototype.toggleGroup = function(e) {
         e.preventDefault();
-        this.$('.arrow').toggleClass('up');
-        return this.$('.bb-articles').toggle();
+        return this.model.set({
+          open: !this.model.get('open')
+        });
       };
 
       NavigationGroup.prototype.appendHtml = function(collectionView, itemView, index) {

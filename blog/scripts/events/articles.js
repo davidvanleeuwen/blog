@@ -5,8 +5,12 @@
       var article, chapter, nav, view;
       chapter = chapters.findArticleBySlug(slug);
       if (!chapter) {
-        chapter = chapters.last();
+        chapter = chapters.first();
       }
+      chapters.setInactive();
+      chapter.set({
+        open: true
+      });
       article = chapter.get('articles').getArticle(slug);
       if (!article) {
         Blog.App.vent.trigger('404');

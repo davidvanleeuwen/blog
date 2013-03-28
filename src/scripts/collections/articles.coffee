@@ -5,7 +5,5 @@ define ['models/article'], ->
     getArticle: (slug) ->
       article = @find (item) -> item.get('slug') is slug
       article = @last() unless slug
-
-      @each (item) -> item.set(active: false)
       article.set(active: true) if article
       return article

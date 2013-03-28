@@ -17133,7 +17133,19 @@ define('mdown!articles/useful-backbone-extensions.md',[],function () { return '<
   define('fixtures/articles',['mdown!articles/about-this-blog.md', 'mdown!articles/build-a-blog-using-grunt.md', 'mdown!articles/backbone.marionette.md', 'mdown!articles/useful-backbone-extensions.md'], function() {
     return [
       {
+        title: 'Backbone Modal',
+        open: true,
+        articles: [
+          {
+            title: 'Foreword',
+            intro: '',
+            slug: 'foreword',
+            content: arguments[0]
+          }
+        ]
+      }, {
         title: 'Building this blog',
+        open: false,
         articles: [
           {
             title: 'Foreword',
@@ -17206,11 +17218,6 @@ define('mdown!articles/useful-backbone-extensions.md',[],function () { return '<
         if (!slug) {
           article = this.last();
         }
-        this.each(function(item) {
-          return item.set({
-            active: false
-          });
-        });
         if (article) {
           article.set({
             active: true
@@ -17274,6 +17281,16 @@ define('mdown!articles/useful-backbone-extensions.md',[],function () { return '<
         return this.find(function(chapter) {
           return _.any(chapter.get('articles').pluck('slug'), function(item) {
             return item === slug;
+          });
+        });
+      };
+
+      Chapters.prototype.setInactive = function() {
+        return this.each(function(chapter) {
+          return chapter.get('articles').each(function(item) {
+            return item.set({
+              active: false
+            });
           });
         });
       };
@@ -17475,17 +17492,31 @@ define('mdown!articles/useful-backbone-extensions.md',[],function () { return '<
       };
 
       NavigationGroup.prototype.bindings = {
-        'h3': 'title'
+        'h3': 'title',
+        '.arrow': {
+          observe: 'open',
+          onGet: 'setOpen'
+        }
+      };
+
+      NavigationGroup.prototype.initialize = function() {
+        return this.collection = this.model.get('articles');
       };
 
       NavigationGroup.prototype.onRender = function() {
         return this.stickit();
       };
 
+      NavigationGroup.prototype.setOpen = function(val) {
+        this.$('.arrow').toggleClass('up', !val);
+        this.$('.bb-articles').toggle(val);
+      };
+
       NavigationGroup.prototype.toggleGroup = function(e) {
         e.preventDefault();
-        this.$('.arrow').toggleClass('up');
-        return this.$('.bb-articles').toggle();
+        return this.model.set({
+          open: !this.model.get('open')
+        });
       };
 
       NavigationGroup.prototype.appendHtml = function(collectionView, itemView, index) {
@@ -17504,16 +17535,11 @@ define('mdown!articles/useful-backbone-extensions.md',[],function () { return '<
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   define('views/navigation',['templates/navigation', 'views/navigation_group'], function(template) {
-    var _this = this;
     return Blog.Views.Navigation = (function(_super) {
 
       __extends(Navigation, _super);
 
       function Navigation() {
-        var _this = this;
-        this.itemViewOptions = function() {
-          return Navigation.prototype.itemViewOptions.apply(_this, arguments);
-        };
         return Navigation.__super__.constructor.apply(this, arguments);
       }
 
@@ -17522,16 +17548,6 @@ define('mdown!articles/useful-backbone-extensions.md',[],function () { return '<
       Navigation.prototype.template = template;
 
       Navigation.prototype.itemViewContainer = '.bb-items';
-
-      Navigation.prototype.itemViewOptions = function() {
-        return {
-          collection: this.model.get('articles')
-        };
-      };
-
-      Navigation.prototype.appendHtml = function(collectionView, itemView, index) {
-        return collectionView.$(this.itemViewContainer).prepend(itemView.el);
-      };
 
       return Navigation;
 
@@ -17595,8 +17611,12 @@ define('mdown!articles/useful-backbone-extensions.md',[],function () { return '<
       var article, chapter, nav, view;
       chapter = chapters.findArticleBySlug(slug);
       if (!chapter) {
-        chapter = chapters.last();
+        chapter = chapters.first();
       }
+      chapters.setInactive();
+      chapter.set({
+        open: true
+      });
       article = chapter.get('articles').getArticle(slug);
       if (!article) {
         Blog.App.vent.trigger('404');

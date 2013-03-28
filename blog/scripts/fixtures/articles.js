@@ -3,7 +3,19 @@
   define(['mdown!articles/about-this-blog.md', 'mdown!articles/build-a-blog-using-grunt.md', 'mdown!articles/backbone.marionette.md', 'mdown!articles/useful-backbone-extensions.md'], function() {
     return [
       {
+        title: 'Backbone Modal',
+        open: true,
+        articles: [
+          {
+            title: 'Foreword',
+            intro: '',
+            slug: 'foreword',
+            content: arguments[0]
+          }
+        ]
+      }, {
         title: 'Building this blog',
+        open: false,
         articles: [
           {
             title: 'Foreword',

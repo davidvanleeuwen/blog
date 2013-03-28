@@ -5,7 +5,17 @@ define [
   'mdown!articles/useful-backbone-extensions.md'
 ], ->
   [
+    title: 'Backbone Modal'
+    open: true
+    articles: [
+      title: 'Foreword'
+      intro: ''
+      slug: 'foreword'
+      content: arguments[0]
+    ]
+  ,
     title: 'Building this blog'
+    open: false
     articles: [
       title: 'Foreword'
       intro: ''

@@ -7,9 +7,13 @@ define [
 
   Blog.App.vent.bind 'article', (slug) ->
     chapter   = chapters.findArticleBySlug(slug)
-    chapter   = chapters.last() unless chapter
+    chapter   = chapters.first() unless chapter
+
+    chapters.setInactive()
+    chapter.set(open: true)
 
     article   = chapter.get('articles').getArticle(slug)
+
 
     unless article
       Blog.App.vent.trigger('404')
