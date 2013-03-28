@@ -28,8 +28,6 @@
         };
       };
 
-      Navigation.prototype.initialize = function() {};
-
       Navigation.prototype.appendHtml = function(collectionView, itemView, index) {
         return collectionView.$(this.itemViewContainer).prepend(itemView.el);
       };

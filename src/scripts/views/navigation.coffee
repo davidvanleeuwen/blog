@@ -7,7 +7,5 @@ define ['templates/navigation', 'views/navigation_group'], (template) ->
     itemViewOptions: =>
       collection: @model.get('articles')
 
-    initialize: ->
-
     appendHtml: (collectionView, itemView, index) ->
       collectionView.$(@itemViewContainer).prepend(itemView.el)
