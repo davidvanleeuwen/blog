@@ -34,23 +34,24 @@
       Index.prototype.scrollInArticle = function() {
         var part;
         part = ($('body')[0].scrollHeight / 100) * 20;
-        if ($('body').scrollTop() > part && !this.hidden) {
+        if ($('body').scrollTop() > part && !this.hidden && $('body').scrollTop() > this.lastScrollTop) {
           this.hidden = true;
-          return this.$(this.navigation.el).animate({
+          this.$(this.navigation.el).animate({
             left: '-24%',
             opacity: 0
           }, {
             duration: 200
           });
-        } else if ($('body').scrollTop() < part && this.hidden) {
+        } else if (this.hidden && $('body').scrollTop() < this.lastScrollTop) {
           this.hidden = false;
-          return this.$(this.navigation.el).animate({
+          this.$(this.navigation.el).animate({
             left: '0',
             opacity: 1
           }, {
             duration: 200
           });
         }
+        return this.lastScrollTop = $('body').scrollTop();
       };
 
       return Index;
