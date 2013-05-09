@@ -4,6 +4,7 @@ define [
   'mdown!articles/backbone.marionette.md'
   'mdown!articles/useful-backbone-extensions.md'
   'mdown!articles/getting-started.md'
+  'mdown!articles/creating-the-modal.md'
 ], ->
   [
     title: 'Backbone Modal'
@@ -13,10 +14,15 @@ define [
       intro: 'This is an introduction in creating our own Backbone extension and starts with Jasmine.'
       slug: 'getting-started'
       content: arguments[4]
+    ,
+      title: 'Creating the modal'
+      intro: "This is part two of creating a Backbone extension using Jasmine. We'll also use Marionette's power here."
+      slug: 'creating-the-modal'
+      content: arguments[5]
     ]
   ,
     title: 'Building this blog'
-    open: false
+    open: true
     articles: [
       title: 'Foreword'
       intro: ''
