@@ -14,7 +14,6 @@ define [
 
     article   = chapter.get('articles').getArticle(slug)
 
-
     unless article
       Blog.App.vent.trigger('404')
       return

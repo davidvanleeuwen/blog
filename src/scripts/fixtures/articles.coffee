@@ -22,7 +22,7 @@ define [
     ]
   ,
     title: 'Building this blog'
-    open: true
+    open: false
     articles: [
       title: 'Foreword'
       intro: ''

@@ -1,5 +1,6 @@
 @import url('http://fonts.googleapis.com/css?family=Merriweather+Sans:700|Enriqueta')
 
+
 body
   margin: 0
   font-size: 1em
@@ -20,14 +21,22 @@ h3
 p 
   font-family: 'Enriqueta'
   text-align: justify
-  font-size: 18px
-  line-height: 30px
+  font-size: 1.15em
+  line-height: 35px
 
 a
-  color: black
+  color: #307EA9
+  -moz-transition: all 0.4s
+  -webkit-transition: all 0.4s
+  -o-transition: all 0.4s
+  transition: all 0.4s
 
   &:hover
-    text-decoration: none
+    opacity: 0.6
+
+.ss-icon
+  font-size: 1.3em
+  margin: 5px 2px
 
 nav
   z-index: 1
@@ -161,7 +170,7 @@ article
   //     top: 3px
 
   p
-    max-width: 700px
+    max-width: 800px
     padding:
       right: 80px
 
@@ -263,7 +272,7 @@ code[data-gist]
   h3
     font-size: 16px
   p, article p:first-child time, .gist .gist-file .gist-data pre
-    font-size: 90%
+    font-size: 100%
   article
     margin:
       left: 0

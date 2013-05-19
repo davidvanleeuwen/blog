@@ -40,7 +40,6 @@ module.exports = (grunt) ->
       templates:
         options:
           language: 'coffee'
-          namespace: 'JST'
           target: 'js'
         files:
           grunt.file.expandMapping(['src/templates/**/*.haml'], 'blog/scripts/templates/',
@@ -53,6 +52,9 @@ module.exports = (grunt) ->
             target: 'html'
         files:
           'blog/index.html': 'src/index.haml'
+
+    concurrent:
+      compile: ['coffee', 'sass', 'haml']
 
     requirejs:
       compile:
@@ -106,7 +108,8 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-livereload'
   grunt.loadNpmTasks 'grunt-contrib-requirejs'
   grunt.loadNpmTasks 'grunt-contrib-clean'
+  grunt.loadNpmTasks 'grunt-concurrent'
 
-  grunt.registerTask 'build', ['coffee', 'sass', 'haml', 'requirejs:compile']
+  grunt.registerTask 'build', ['concurrent', 'requirejs:compile']
   grunt.registerTask 'watch', ['connect', 'build', 'livereload-start', 'open', 'regarde']
   grunt.registerTask 'deploy', ['coffee', 'sass', 'haml', 'requirejs:deploy']

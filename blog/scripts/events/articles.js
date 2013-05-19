@@ -1,8 +1,8 @@
 (function() {
-
   define(['collections/chapters', 'views/article', 'views/navigation', 'views/not_found'], function(chapters) {
     Blog.App.vent.bind('article', function(slug) {
       var article, chapter, nav, view;
+
       chapter = chapters.findArticleBySlug(slug);
       if (!chapter) {
         chapter = chapters.first();
@@ -33,6 +33,7 @@
     });
     return Blog.App.vent.bind('404', function() {
       var nav, view;
+
       nav = new Blog.Views.Navigation({
         collection: chapters
       });

@@ -1,5 +1,4 @@
 (function() {
-
   require.config({
     waitSeconds: 45,
     pragmasOnSave: {
