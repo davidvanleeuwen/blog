@@ -1,4 +1,4 @@
-### About this blog ###
+## About this blog ##
 
 I've always loved to read blogs, hackernews and such, but I always struggeled finding the right information. 
 
@@ -11,7 +11,7 @@ If you know Javascript, but are new to JavaScript applications - you'll find eve
 PS: I'm no native English speaker, so everyone who the mood to do some copywriting is welcome.
 
 
-### Create your own ###
+## Create your own ##
 
 There are a few things you'll need to know when you want to get started with this blog. 
 
@@ -28,6 +28,9 @@ Once you're ready, fire up a terminal and install all plugins by doing:
 ```bash
 npm install
 ```
+
+You'll also need the SASS compiler, which is a Ruby gem. 
+Check if you have Ruby installed `ruby -v` (if not, I would recommend [rvm](https://rvm.io/)). Then run `gem install sass` and you're all set.
 
 After that, you can simply fire up the blog by doing:
 
