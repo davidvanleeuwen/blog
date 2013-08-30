@@ -7,7 +7,7 @@ Yay, it's finally done. We just launched the <a href="http://awkward.github.io/b
 
 In this article we're going to talk about how you can actually use Backbone.Modal. In the previous articles we discussed how we could build such a plugin. So let's put that into practice and add a modal to this blog.
 
-<img src="/images/modals.png" alt="Backbone.Modal" />
+<img src="/images/modals.png" alt="Backbone.Modal" width="100%" />
 
 Do check out the <a href="http://awkward.github.io/backbone.modal/">docs</a> we've created for you. There are some examples on there and you can try them out on the site itself.
 
