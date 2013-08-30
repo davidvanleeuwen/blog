@@ -1,4 +1,4 @@
-define ['marionette'], (Marionette) ->
+define ['marionette', 'lib/dom_app_event_trigger'], (Marionette, DomAppEventTrigger) ->
 
   class Blog
     constructor: (@options = {}) ->
@@ -12,6 +12,8 @@ define ['marionette'], (Marionette) ->
     
   # To have it globally accessible
   window.Blog = new Blog()
+
+  new DomAppEventTrigger(window.Blog.App)
 
   window.Blog.App.addRegions
     container: 'body'

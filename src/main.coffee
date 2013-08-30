@@ -15,6 +15,7 @@ require.config
     marionette: 'vendor/backbone.marionette-1.0.0rc6'
     stickit: 'vendor/backbone.stickit-0.6.3'
     relational: 'vendor/backbone.relational-0.8.0'
+    modal: 'vendor/backbone.modal-bundled'
 
   # Shim modules
   shim:
@@ -32,12 +33,16 @@ require.config
     relational:
       exports: 'Backbone.Relational'
       deps: ['backbone']
+    modal:
+      exports: 'Backbone.Modal'
+      deps: ['marionette']
 
 require [
   'jquery'
   'backbone'
   'relational'
   'stickit'
+  'modal'
   'blog'
 
   'events/articles'
@@ -45,6 +50,7 @@ require [
   'layouts/index'
 
   'lib/gists'
+
 ], ($, Backbone) ->
   Blog.App.addInitializer (options) ->
     Backbone.history.start(pushState: true)

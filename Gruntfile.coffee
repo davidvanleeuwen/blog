@@ -4,11 +4,12 @@ module.exports = (grunt) ->
   grunt.initConfig
     open:
       default:
-        url: 'http://localhost:8000'
+        url: 'http://localhost:5000'
 
     connect:
       default:
         options:
+          port: '5000'
           base: './blog'
           middleware: (connect, options) ->
             [connect.static(options.base), (req, res, next) ->
@@ -76,40 +77,41 @@ module.exports = (grunt) ->
           out: "./blog/scripts/blog.js"
           stubModules: ['text', 'mdown']
 
-    # clean: ["blog/"]
-
-    # Todo: add Jasmine
-
-    regarde:
-      livereloadCSS:
-        files: ['blog/stylesheets/main.css']
-        tasks: ['livereload:main.css']
-        # events: true
-      livereloadJS:
-        files: ['blog/**/*.js']
-        tasks: ['livereload']
-        # events: true
+    watch:
+      # livereloadCSS:
+      #   files: ['blog/stylesheets/main.css']
+      #   options:
+      #     livereload: true
+      # livereloadJS:
+      #   files: ['blog/**/*.js']
+      #   options:
+      #     livereload: true
       sass:
         files: ['src/stylesheets/**/*.sass']
         tasks: ['sass']
+        options:
+          livereload: true
       coffee:
         files: ['src/**/*.coffee', 'blog/scripts/articles/*.md']
         tasks: ['coffee', 'requirejs:compile']
+        options:
+          livereload: true
       haml:
         files: ['src/**/*.haml']
         tasks: ['haml', 'requirejs:compile']
+        options:
+          livereload: true
 
   grunt.loadNpmTasks 'grunt-contrib-connect'
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-sass'
-  grunt.loadNpmTasks 'grunt-regarde'
+  grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-haml'
   grunt.loadNpmTasks 'grunt-open'
-  grunt.loadNpmTasks 'grunt-contrib-livereload'
   grunt.loadNpmTasks 'grunt-contrib-requirejs'
   grunt.loadNpmTasks 'grunt-contrib-clean'
   grunt.loadNpmTasks 'grunt-concurrent'
 
   grunt.registerTask 'build', ['concurrent', 'requirejs:compile']
-  grunt.registerTask 'watch', ['connect', 'build', 'livereload-start', 'open', 'regarde']
-  grunt.registerTask 'deploy', ['coffee', 'sass', 'haml', 'requirejs:deploy']
+  grunt.registerTask 'server', ['connect', 'build', 'open', 'watch']
+  grunt.registerTask 'deploy', ['concurrent', 'requirejs:deploy']

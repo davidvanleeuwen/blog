@@ -4,6 +4,10 @@ define ['templates/layout'], (template) ->
     regions:
       navigation: 'nav'
       article: 'article'
+      modal: 
+        selector: '.modal'
+        regionType: Backbone.Marionette.Modals
+
 
     onRender: ->
       $(window).on('scroll', @scrollInArticle)

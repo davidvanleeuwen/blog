@@ -3,7 +3,10 @@ define [
   'views/article'
   'views/navigation'
   'views/not_found'
+  'views/modal'
 ], (chapters) ->
+
+  article = {}
 
   Blog.App.vent.bind 'article', (slug) ->
     chapter   = chapters.findArticleBySlug(slug)
@@ -25,6 +28,23 @@ define [
 
     Blog.layout.navigation.show(nav)
     Blog.layout.article.show(view)
+
+
+  Blog.App.vent.bind 'modal', ->
+    nav       = new Blog.Views.Navigation(collection: chapters)
+    view      = new Blog.Views.Modal()
+
+
+    Blog.App.vent.trigger('article', article.get('slug')) if _.isEmpty(article)
+    Blog.layout.modal.show(view)  
+
+
+  Blog.App.vent.bind 'modals', ->
+    nav       = new Blog.Views.Navigation(collection: chapters)
+
+    Blog.App.vent.trigger('article', article.get('slug')) if _.isEmpty(article)
+    Blog.layout.modal.show(new Blog.Views.Modal())
+    Blog.layout.modal.show(new Blog.Views.Modal(content: 'Stacked modal!'))
 
 
   Blog.App.vent.bind '404', ->
